@@ -110,8 +110,6 @@ function primeFactorsRecursive(nb) {
 // need a linear non-generator version
 primeFactors = primeFactorsRecursive;
 
-
-
 function *triangleNumbers() {
   let res=0, nb=1;
   while (true) {
@@ -160,6 +158,13 @@ function factorial(nb) {
     return res;
 }
 
+function factorial_big(nb) {
+    let res = new BigNumber(1);
+    for (let i=new BigNumber(2); i.lessThanOrEqualTo(nb); i=i.plus(1))
+        res = res.times(i);
+    return res;
+}
+
 function combinationCount(k, n) {
     return factorial(n)/(factorial(k)*factorial(n-k));
 }
@@ -189,3 +194,16 @@ function toEnglish(nb) {
     }
     return res;
 }
+
+function proper_divisors(nb) {
+    let res=new Set();
+    for (let combi of combinations(primeFactors(nb)))
+      res.add(combi.reduce((res,nb)=>res*nb, 1));
+    res.delete(nb);
+    return [...res];
+}
+
+function sum(array) {
+    return array.reduce((res, nb) => res+nb, 0);
+}
+﻿
