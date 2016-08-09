@@ -50,9 +50,14 @@ class Bag {
   }
 }
 
-function *range(min,max) {
-  for(let i=min; i<=max; i++)
-    yield i;
+function *range(a,b) {
+  if (a<b) {
+    for(let i=a; i<=b; i++)
+      yield i;
+  } else {
+    for(let i=a; i>=b; i--)
+      yield i;
+  }
 }
 
 var primes_mem=[2, 3, 5, 7];
@@ -77,14 +82,14 @@ function *primes() {
 }
 
 function primeFactorsLinear(nb) {
+  if (nb==1) return[];
   let res=[];
-  while (nb!=1) {
-    for (let prime of primes()) {
-      if (nb%prime===0) {
-        res.push(prime);
-        nb = nb/prime;
-        break;
-      }
+  for (let prime of primes()) {
+    while (nb%prime===0) {
+      res.push(prime);
+      nb = nb/prime;
+      if (nb===1)
+        return res;
     }
   }
   return res;
@@ -104,6 +109,8 @@ function primeFactorsRecursive(nb) {
 // still faster because generators are slow
 // need a linear non-generator version
 primeFactors = primeFactorsRecursive;
+
+
 
 function *triangleNumbers() {
   let res=0, nb=1;
@@ -133,4 +140,16 @@ function divisors(nb) {
   for (let combi of combinations(primeFactors(nb)))
     res.add(combi.reduce((res,nb)=>res*nb, 1));
   return [...res];
+}
+
+function collatzLength(nb) {
+  let res = 1;
+  while (nb!=1) {
+    res++;
+    if (nb%2===0)
+      nb=nb/2;
+    else
+      nb = nb*3+1;
+  }
+  return res;
 }

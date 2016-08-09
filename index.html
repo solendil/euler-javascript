@@ -3,6 +3,7 @@
 
 </head>
 <body>
+  <script src="bower_components/bignumber.js/bignumber.min.js"></script>
   <script src="help.js"></script>
   <script>
   function script(url, resolveOnError) {
@@ -30,7 +31,13 @@
   }
   problem = {};
   function everythingLoaded() {
-    for (let i in problem) {
+    let max = Math.max(...Object.keys(problem));
+    for (let i of range(max, 1)) {
+      if (!(i in problem)) {
+        let res = "problem " + i +" not solved";
+        console.log(res);
+        continue;
+      }
       let pro = problem[i];
       var t0 = performance.now();
       let computed = pro.solver();
@@ -44,6 +51,8 @@
       }
       res += " in "+(t1-t0).toFixed(3)+"ms"
       console.log(res);
+
+      //break; // dev mode, take only last problem
     }
   }
 
