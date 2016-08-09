@@ -1,4 +1,4 @@
-fibonacci = function* () {
+﻿fibonacci = function* () {
   let a=0, b=1;
   while(true) {
     yield b;
@@ -152,4 +152,40 @@ function collatzLength(nb) {
       nb = nb*3+1;
   }
   return res;
+}
+
+function factorial(nb) {
+    let res=1;
+    for (let i of range(2,nb)) res*=i;
+    return res;
+}
+
+function combinationCount(k, n) {
+    return factorial(n)/(factorial(k)*factorial(n-k));
+}
+
+text = {1:"one", 2:"two", 3:"three", 4:"four", 5:"five", 6:"six", 7:"seven", 8:"eight", 9:"nine", 10:"ten",
+11:"eleven", 12:"twelve", 13:"thirteen", 14:"fourteen", 15:"fifteen", 16:"sixteen", 17:"seventeen", 18:"eighteen", 19:"nineteen",
+20:"twenty", 30:"thirty", 40:"forty", 50:"fifty", 60:"sixty", 70:"seventy", 80:"eighty", 90:"ninety"};
+
+function toEnglish(nb) {
+    if (nb>=1000) throw new Error("Invalid number");
+    let res = "";
+    let hundred = Math.trunc(nb/100);
+    if (hundred>=1) {
+        res += text[hundred] + " hundred";
+        nb = nb - hundred*100;
+        if (nb!==0)
+            res +=  " and ";
+    }
+    if (nb<=20 && nb>0) {
+        res += text[nb];
+    } else if (nb>0) {
+        let tens = Math.trunc(nb/10);
+        res += text[tens*10];
+        nb = nb - tens*10;
+        if (nb!==0)
+            res += " " + text[nb];
+    }
+    return res;
 }
