@@ -53,12 +53,12 @@
       res += " in "+(t1-t0).toFixed(3)+"ms"
       console.log(res);
 
-      //break; // dev mode, take only last problem
+      break; // dev mode, take only last problem
     }
   }
 
   promises = []
-  for (let i of range(1, 30)) {
+  for (let i of range(1, 40)) {
     promises.push(script("problem_"+i+".js", true));
   }
   Promise.all(promises).then(function(success) {

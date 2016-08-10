@@ -1,4 +1,4 @@
-function *fibonacci() {
+﻿function *fibonacci() {
   let a=0, b=1;
   while(true) {
     yield b;
@@ -66,6 +66,18 @@ function *range(a,b) {
     for(let i=a; i>=b; i--)
       yield i;
   }
+}
+
+function* range_big(a, b) {
+    a = new BigNumber(a);
+    b = new BigNumber(b);
+    if (a.lessThan(b)) {
+        for (; a.lessThanOrEqualTo(b); a = a.plus(1))
+            yield a;
+    } else {
+        for (; a.greaterThanOrEqualTo(b); a = a.minus(1))
+            yield a;
+    }
 }
 
 var primes_mem=[2, 3, 5, 7];
@@ -233,8 +245,14 @@ function proper_divisors(nb) {
     return [...res];
 }
 
-function sum(array) {
-    return array.reduce((res, nb) => res+nb, 0);
+function sum(col) {
+    if (col instanceof Set) {
+        let res=0;
+        for (let v of col) res+=v;
+        return res;
+    } else {
+        return col.reduce((res, nb) => res+nb, 0);
+    }
 }
 
 function permutations(array) {

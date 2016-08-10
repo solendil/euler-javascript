@@ -1,4 +1,4 @@
-
+﻿
 problem[27] = {
     answer: -59231,
     solver: function() {
