@@ -195,6 +195,8 @@ function collatzLength(nb) {
 }
 
 function factorial(nb) {
+  if (nb==0) return 1;
+  if (nb==1) return 1;
     let res=1;
     for (let i of range(2,nb)) res*=i;
     return res;
@@ -278,4 +280,37 @@ function permutations(array) {
       }
   })(array.length, array);
   return result;
+}
+
+function getGcd(a, b) {
+    if (a<=b)
+      [a,b]=[b,a];
+    while (b!==0) {
+      let t = b;
+      b = a % b;
+      a = t;
+    }
+    return a;
+}
+
+function getLcm(a, b) {
+  return a*b/getGcd(a,b);
+}
+
+function *digits(nb) {
+    let chars = String(nb).split("");
+    for (let c of chars)
+      yield Number(c);
+}
+
+function digit_rotations(nb) {
+  let chars = String(nb).split('');
+  let nbDigits = chars.length;
+  chars = chars.concat(chars);
+  let res = [];
+  for (let i of range(0,nbDigits-1)) {
+    let iter = chars.slice(i, i+nbDigits);
+    res.push(Number(iter.join('')));
+  }
+  return res;
 }
