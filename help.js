@@ -1,10 +1,18 @@
-﻿fibonacci = function* () {
+function *fibonacci() {
   let a=0, b=1;
   while(true) {
     yield b;
     [a, b] = [b, a+b];
   }
-};
+}
+
+function *fibonacci_big() {
+  let a=new BigNumber(0), b=new BigNumber(1);
+  while(true) {
+    yield b;
+    [a, b] = [b, a.plus(b)];
+  }
+}
 
 function isPalindrome(str) {
   var len = Math.floor(str.length / 2);
@@ -79,6 +87,28 @@ function *primes() {
       primes_mem.push(nb); // memoize
       yield nb;
     }
+}
+
+var primes_mem=[2, 3, 5, 7];
+function ensure_primes(val) {
+  if (primes_mem[primes_mem.length-1]<val)
+    for (let prime of primes())
+      if (prime>val)
+        return;
+}
+
+function isPrime(nb) {
+  if (nb<=0)
+    return false;
+  ensure_primes(Math.sqrt(nb));
+  let sq = Math.sqrt(nb);
+  for(let i of primes_mem) {
+    if (nb%i===0)
+      return false;
+    if (i>sq)
+      break;
+  }
+  return true;
 }
 
 function primeFactorsLinear(nb) {
@@ -206,4 +236,28 @@ function proper_divisors(nb) {
 function sum(array) {
     return array.reduce((res, nb) => res+nb, 0);
 }
-﻿
+
+function permutations(array) {
+  let result = [];
+  (function(n, A) { // wikipedia's Heap algorithm
+      var c = [];
+      for(let i of range(0, n-1))
+        c[i] = 0;
+      result.push(A.slice());
+      for (let i=0; i<n; ) {
+        if (c[i]<i) {
+          if (i%2===0)
+            [ A[0],A[i] ] = [ A[i],A[0] ];
+          else
+            [ A[c[i]],A[i] ] = [ A[i],A[c[i]] ];
+          result.push(A.slice());
+          c[i] ++;
+          i = 0;
+        } else {
+          c[i] = 0;
+          i++;
+        }
+      }
+  })(array.length, array);
+  return result;
+}
