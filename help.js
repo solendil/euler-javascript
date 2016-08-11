@@ -110,8 +110,8 @@ function ensure_primes(val) {
 }
 
 function isPrime(nb) {
-  if (nb<=0)
-    return false;
+    if (nb<=1) return false;
+    if (nb==2) return true;
   ensure_primes(Math.sqrt(nb));
   let sq = Math.sqrt(nb);
   for(let i of primes_mem) {

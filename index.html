@@ -58,7 +58,7 @@
   }
 
   promises = []
-  for (let i of range(1, 40)) {
+  for (let i of range(1, 50)) {
     promises.push(script("problem_"+i+".js", true));
   }
   Promise.all(promises).then(function(success) {
