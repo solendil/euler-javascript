@@ -7,7 +7,6 @@ problem[35] = {
     solver: function() {
       let res = 0;
       out: for (let i of range(0,999999)) {
-        if (i%100000==0) console.log(i)
         for (let nb of digit_rotations(i))
           if (!isPrime(nb))
             continue out;

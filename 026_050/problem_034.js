@@ -8,7 +8,6 @@ problem[34] = {
         for (let d of digits(i))
           sum+=factorial(d);
         if (sum==i) {
-          console.log("res",i);
           res+=i;
         }
       }
