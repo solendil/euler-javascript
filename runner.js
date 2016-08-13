@@ -59,7 +59,7 @@
       res += " in " + (t1 - t0).toFixed(3) + "ms";
       console.log(res);
 
-      //break; // dev mode, take only last problem
+      break; // dev mode, take only last problem
     }
   }
 

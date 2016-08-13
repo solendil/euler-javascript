@@ -314,3 +314,13 @@ function digit_rotations(nb) {
   }
   return res;
 }
+
+function isPentagonal(nb) {
+    let inv = (Math.sqrt(24*nb+1)+1)/6;
+    return Number.isInteger(inv);
+}
+
+function isHexagonal(nb) {
+  let inv = (Math.sqrt(8*nb+1)+1)/4;
+  return Number.isInteger(inv);
+}
