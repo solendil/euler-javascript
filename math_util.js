@@ -324,3 +324,9 @@ function isHexagonal(nb) {
   let inv = (Math.sqrt(8*nb+1)+1)/4;
   return Number.isInteger(inv);
 }
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
