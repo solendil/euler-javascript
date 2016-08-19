@@ -81,10 +81,14 @@ function* range_big(a, b) {
 }
 
 var primes_mem=[2, 3, 5, 7];
-function *primes() {
+function *primes(max) {
+    max = max || Number.MAX_VALUE;
     // yield memoized
     for (let prime of primes_mem)
-      yield prime;
+        if (prime>max)
+            break;
+        else
+            yield prime;
     // now for the rest
     let nb = primes_mem.slice(-1).pop();
     out: while(true) {
@@ -97,7 +101,10 @@ function *primes() {
           break;
       }
       primes_mem.push(nb); // memoize
-      yield nb;
+      if (nb>max)
+          break;
+      else
+          yield nb;
     }
 }
 
