@@ -64,7 +64,7 @@
   }
 
   let promises = [];
-  for (let i of range(50, 60))
+  for (let i of range(60, 70))
     promises.push(loadScript(scriptPath(i), true));
 
   Promise.all(promises).then(function(success) {

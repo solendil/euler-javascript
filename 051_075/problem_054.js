@@ -1,37 +1,37 @@
-class CategorySorter {
-  constructor() {
-    this.map = new Map();
-  }
-  add(key, value) {
-    if (!this.map.has(key))
-      this.map.set(key,[]);
-    let keyList = this.map.get(key);
-    keyList.push(value);
-  }
-  counts() {
-    let res = [];
-    for (let key of this.map.keys())
-      res.push(this.map.get(key).length);
-    return res.sort().reverse();
-  }
-  histogram() {
-    let res = [];
-    for (let key of this.map.keys()) {
-      res.push({
-        key:key,
-        count:this.map.get(key).length,
-        values:this.map.get(key)
-      });
-    }
-    res.sort((a,b) => b.count-a.count);
-    return res;
-  }
-}
+
 
 problem[54] = {
     answer: 376,
     solver: function() {
-
+      class CategorySorter {
+        constructor() {
+          this.map = new Map();
+        }
+        add(key, value) {
+          if (!this.map.has(key))
+            this.map.set(key,[]);
+          let keyList = this.map.get(key);
+          keyList.push(value);
+        }
+        counts() {
+          let res = [];
+          for (let key of this.map.keys())
+            res.push(this.map.get(key).length);
+          return res.sort().reverse();
+        }
+        histogram() {
+          let res = [];
+          for (let key of this.map.keys()) {
+            res.push({
+              key:key,
+              count:this.map.get(key).length,
+              values:this.map.get(key)
+            });
+          }
+          res.sort((a,b) => b.count-a.count);
+          return res;
+        }
+      }
       // this function is unfinished; only sufficient for project euler's problem
       function evaluate(hand) {
         let rankString = "23456789TJQKA";
