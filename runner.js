@@ -1,4 +1,4 @@
-(function() {
+﻿(function() {
   function pad(n, width, z) {
     z = z || '0';
     n = n + '';
@@ -39,7 +39,8 @@
 
   function everythingLoaded() {
     let max = Math.max(...Object.keys(problem));
-    for (let i of range(max, 1)) {
+//    for (let i of range(max, 1)) {
+    for (let i of range(62,62)) {
       if (!(i in problem)) {
         let res = "problem " + i + " not solved";
         console.log(res);

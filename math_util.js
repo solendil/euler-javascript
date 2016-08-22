@@ -339,3 +339,53 @@ function pad(n, width, z) {
 }
 
 BigNumber.config({ POW_PRECISION: 0 });
+
+// return continued fraction for the sqrt of the given int as an array
+// res[0] is the first term, res[1...n] is the looping sequence of continued fractions
+function sqrt_continued_fraction(nb) {
+    let firstTerm = Math.trunc(Math.sqrt(nb));
+    if (firstTerm*firstTerm===nb)
+        return [firstTerm];
+    let A=1, B=nb, C=firstTerm; // A / (sqrt(B)-C)
+    let seq = [];
+    let res = [firstTerm];
+    function inner(A,B,C) {
+        let intPart = Math.trunc(A/(Math.sqrt(B)-C));
+        if (seq.includes(A+"_"+C)) {
+            // loop detected
+            if (seq.indexOf(A+"_"+C)!==0)
+                throw "weird loop";
+            return;
+        }
+        seq.push(A+"_"+C);
+        res.push(intPart);
+        let denom = (B-C*C)/A;
+        let num = (A*C-intPart*(B-C*C))/A;
+        inner(denom, B, -num);
+    }
+    inner(A,B,C);
+    return res;
+}
+
+// yield convergents [a,b] (a/b) for the given continued fraction
+function *convergents (cont) {
+    let rank = 0;
+    while (true) {
+        let a=new BigNumber(1), b=new BigNumber(0);
+        for (let i=rank; i>=0; i--) {
+            let index = (i===0)?0: (i-1) % (cont.length-1) + 1;
+            let c = new BigNumber(cont[index]);
+            let swap = a;
+            a = b;
+            b = swap;
+            a = c.times(b).plus(a);
+        }
+        yield [a,b];
+        rank++;
+    }
+}
+
+function isSquare(nb) {
+    let sq = Math.trunc(Math.sqrt(nb));
+    return sq*sq===nb;
+}
