@@ -39,8 +39,8 @@
 
   function everythingLoaded() {
     let max = Math.max(...Object.keys(problem));
-//    for (let i of range(max, 1)) {
-    for (let i of range(62,62)) {
+    for (let i of range(max, 1)) {
+//    for (let i of range(62,62)) {
       if (!(i in problem)) {
         let res = "problem " + i + " not solved";
         console.log(res);
@@ -65,7 +65,7 @@
   }
 
   let promises = [];
-  for (let i of range(60, 70))
+  for (let i of range(80, 70))
     promises.push(loadScript(scriptPath(i), true));
 
   Promise.all(promises).then(function(success) {

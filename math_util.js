@@ -115,6 +115,13 @@ function ensure_primes(val) {
       if (prime>val)
         return;
 }
+function ensure_primes_nb(nb) {
+    if (primes_mem.length<nb)
+      for (let prime of primes())
+        if (primes_mem.length>=nb)
+          return;
+}
+ensure_primes_nb(256);
 
 function isPrime(nb) {
     if (nb<=1) return false;
@@ -388,4 +395,51 @@ function *convergents (cont) {
 function isSquare(nb) {
     let sq = Math.trunc(Math.sqrt(nb));
     return sq*sq===nb;
+}
+
+// http://stackoverflow.com/questions/1985260/javascript-array-rotate
+Array.prototype.rotate = (function() {
+    // save references to array functions to make lookup faster
+    var push = Array.prototype.push,
+        splice = Array.prototype.splice;
+
+    return function(count) {
+        var len = this.length >>> 0, // convert to uint
+            count = count >> 0; // convert to int
+
+        // convert count to value in range [0, len)
+        count = ((count % len) + len) % len;
+
+        // use splice.call() instead of this.splice() to make function generic
+        push.apply(this, splice.call(this, 0, count));
+        return this;
+    };
+})();
+
+function totient(n) {
+    let result = n;
+    let i = 2;
+    while (i * i <= n) {
+        if (n % i === 0) {
+            while (n % i === 0)
+                n = n/i;
+            result -= result / i;
+        }
+        i += 1;
+    }
+    if (n > 1)
+        result -= result / n;
+    return result;
+}
+
+function isAnagram(word1, word2) {
+  if (word1.length !== word2.length)
+    return false;
+  var word1hash = 1;
+  var word2hash = 1;
+  for (var i = 0; i < word1.length; i++)
+    word1hash *= primes_mem[word1.charCodeAt(i)];
+  for (var i = 0; i < word2.length; i++)
+    word2hash *= primes_mem[word2.charCodeAt(i)];
+  return word1hash == word2hash;
 }
